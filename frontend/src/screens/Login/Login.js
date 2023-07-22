@@ -6,7 +6,7 @@ import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const {height} = useWindowDimensions();
@@ -14,7 +14,7 @@ const Login = () => {
     const onSignInPressed = () => {
       // Prepare the data to be sent to the API
       const data = {
-        username: username,
+        email: email,
         password: password,
       };
 
@@ -60,9 +60,9 @@ const Login = () => {
         <Image source={Logo} style={[styles.logo, {height: height * 0.3}]} resizeMode='contain' />
 
         <CustomInput 
-          placeholder="Username" 
-          value={username} 
-          setValue={setUsername}
+          placeholder="Email" 
+          value={email} 
+          setValue={setEmail}
         />
         <CustomInput 
           placeholder="Password" 
