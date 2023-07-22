@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.conf import settings
-
 from django.core.files.storage import default_storage
 from django.core.files.storage import FileSystemStorage
 import os
@@ -11,17 +10,49 @@ import json
 import base64
 import requests
 from django.core import files
-
-
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from account.models import Account
 from friend.utils import get_friend_request_or_false
 from friend.friend_request_status import FriendRequestStatus
 from friend.models import FriendList, FriendRequest
+from rest_framework import generics, status
+from .serializers import LoginSerializer, RegistrationSerializer
+from rest_framework.response import Response
 
 
 TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
+
+class RegistrationAPIView(generics.CreateAPIView):
+    serializer_class = RegistrationSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        print('data', serializer)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response(
+            {
+                'user': serializer.data,
+                'message': 'User registered successfully.',
+            },
+            status=status.HTTP_201_CREATED
+        )
+
+
+class LoginAPIView(generics.CreateAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(
+            {
+                'user': serializer.validated_data,
+                'message': 'User logged in successfully.',
+            },
+            status=status.HTTP_200_OK
+        )
 
 
 # This is basically almost exactly the same as friends/friend_list_view
