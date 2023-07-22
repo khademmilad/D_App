@@ -12,6 +12,33 @@ const Login = () => {
     const {height} = useWindowDimensions();
 
     const onSignInPressed = () => {
+      // Prepare the data to be sent to the API
+      const data = {
+        username: username,
+        password: password,
+      };
+
+      // Make the API request using the Fetch API
+      fetch('http://127.0.0.1:8000/account/api/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then(response => {
+          // Check if the response status is OK (200)
+        if (response.ok) {
+          console.warn('Login successful'); // Display success message in console
+          // You can also handle redirection to another screen upon successful login if needed
+        } else {
+          console.warn('Login failed'); // Display failure message in console
+          // Handle the case of unsuccessful login (e.g., show an error message to the user)
+        }
+      })
+      .catch(error => {
+        console.error('Error occurred:', error);
+      })
         console.warn("sign in")
     }
 
