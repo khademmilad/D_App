@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:19006',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
