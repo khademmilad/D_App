@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import Logo from '../../../assets/images/logo.png'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
-
+import BASE_URL from '../../../config'
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -19,7 +19,7 @@ const Login = () => {
       };
 
       // Make the API request using the Fetch API
-      fetch('http://127.0.0.1:8000/account/api/login/', {
+      fetch('${BASE_URL}/account/api/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
