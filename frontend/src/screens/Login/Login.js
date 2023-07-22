@@ -19,7 +19,7 @@ const Login = () => {
       };
 
       // Make the API request using the Fetch API
-      fetch('${BASE_URL}/account/api/login/', {
+      fetch('http://127.0.0.1:8000/account/api/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
