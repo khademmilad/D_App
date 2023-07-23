@@ -1,17 +1,17 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, {useState} from 'react'
-import Logo from '../../../assets/images/logo.png'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
 
-    const {height} = useWindowDimensions();
 
-    const onSignInPressed = () => {
+    const onRegisterPressed = () => {
       // Prepare the data to be sent to the API
       const data = {
         email: email,
@@ -54,6 +54,14 @@ const SignUp = () => {
       console.warn("Sign up")
     }
 
+    const onTermsOfUsePressed = () => {
+      console.warn('onTermsOfUserPressd');
+    }
+
+    const onPrivacyPressed = () => {
+      console.warn('onPrivacyPressed');
+    }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
@@ -65,20 +73,29 @@ const SignUp = () => {
           setValue={setEmail}
         />
         <CustomInput 
+          placeholder="Username" 
+          value={username} 
+          setValue={setUsername}
+        />
+        <CustomInput 
           placeholder="Password" 
           value={password} 
           setValue={setPassword}
           secureTextEntry={true}
         />
-        <CustomButton
-          text="Sign In"
-          onPress={onSignInPressed}
+        <CustomInput 
+          placeholder="Repeat Password" 
+          value={password2} 
+          setValue={setPassword2}
+          secureTextEntry={true}
         />
         <CustomButton
-          text="Forgot Password?"
-          onPress={onForgotPasswordPressed}
-          type="TERTIARY"
+          text="Register"
+          onPress={onRegisterPressed}
         />
+        <Text style={styles.text}>
+          By registering, you confirm that you accept out<Text style={styles.link} onPress={onTermsOfUsePressed}> Terms of Use</Text> and <Text style={styles.link} onPress={onPrivacyPressed}>Privacy Policy</Text>
+        </Text>
 
         <CustomButton
           text="Sign In with Google"
@@ -113,6 +130,13 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: '#051C60',
       margin: 10,
+    },
+    text: {
+      color: 'gray',
+      marginVertical: 10,
+    },
+    link: {
+      color: '#FDB075',
     }
 })
 
