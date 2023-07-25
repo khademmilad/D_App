@@ -3,6 +3,8 @@ import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
+import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons'
+
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
@@ -46,13 +48,11 @@ const SignUp = () => {
         console.warn("Forgot password")
     }
     
-    const onSignInGoogle = () => {
-      console.warn("Sign in with Google")
-    }
-
     const onSignUpPress = () => {
       console.warn("Sign up")
     }
+
+    <SocialSignInButtons/>
 
     const onTermsOfUsePressed = () => {
       console.warn('onTermsOfUserPressd');
@@ -96,14 +96,6 @@ const SignUp = () => {
         <Text style={styles.text}>
           By registering, you confirm that you accept out<Text style={styles.link} onPress={onTermsOfUsePressed}> Terms of Use</Text> and <Text style={styles.link} onPress={onPrivacyPressed}>Privacy Policy</Text>
         </Text>
-
-        <CustomButton
-          text="Sign In with Google"
-          bgColor="#FAE9EA"
-          fgColor="#DD4D44"
-          onPress={onSignInGoogle}
-        />
-
         <CustomButton
           text="Don't have an account? Create one"
           onPress={onSignUpPress}
