@@ -4,6 +4,9 @@ import Logo from '../../../assets/images/logo.png'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
+import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons'
+
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -46,10 +49,6 @@ const Login = () => {
         console.warn("Forgot password")
     }
     
-    const onSignInGoogle = () => {
-      console.warn("Sign in with Google")
-    }
-
     const onSignUpPress = () => {
       console.warn("Sign up")
     }
@@ -80,12 +79,7 @@ const Login = () => {
           type="TERTIARY"
         />
 
-        <CustomButton
-          text="Sign In with Google"
-          bgColor="#FAE9EA"
-          fgColor="#DD4D44"
-          onPress={onSignInGoogle}
-        />
+        <SocialSignInButtons />
 
         <CustomButton
           text="Don't have an account? Create one"

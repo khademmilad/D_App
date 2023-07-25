@@ -43,13 +43,9 @@ const SignUp = () => {
       })
         console.warn("sign in")
     }
-
-    const onForgotPasswordPressed = () => {
-        console.warn("Forgot password")
-    }
     
-    const onSignUpPress = () => {
-      console.warn("Sign up")
+    const onSignInPress = () => {
+      console.warn("Sign In")
     }
 
     <SocialSignInButtons/>
@@ -72,33 +68,39 @@ const SignUp = () => {
           value={email} 
           setValue={setEmail}
         />
+
         <CustomInput 
           placeholder="Username" 
           value={username} 
           setValue={setUsername}
         />
+
         <CustomInput 
           placeholder="Password" 
           value={password} 
           setValue={setPassword}
           secureTextEntry={true}
         />
+
         <CustomInput 
           placeholder="Repeat Password" 
           value={password2} 
           setValue={setPassword2}
           secureTextEntry={true}
         />
+
         <CustomButton
           text="Register"
           onPress={onRegisterPressed}
         />
+
         <Text style={styles.text}>
           By registering, you confirm that you accept out<Text style={styles.link} onPress={onTermsOfUsePressed}> Terms of Use</Text> and <Text style={styles.link} onPress={onPrivacyPressed}>Privacy Policy</Text>
         </Text>
+
         <CustomButton
-          text="Don't have an account? Create one"
-          onPress={onSignUpPress}
+          text="Have an account? Sign in"
+          onPress={onSignInPress}
           type="TERTIARY"
         />
 
