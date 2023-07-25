@@ -1,20 +1,19 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, {useState} from 'react'
-import Logo from '../../../assets/images/logo.png'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons'
 
 
-
-const Login = () => {
+const SignUp = () => {
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
 
-    const {height} = useWindowDimensions();
 
-    const onSignInPressed = () => {
+    const onRegisterPressed = () => {
       // Prepare the data to be sent to the API
       const data = {
         email: email,
@@ -44,46 +43,64 @@ const Login = () => {
       })
         console.warn("sign in")
     }
-
-    const onForgotPasswordPressed = () => {
-        console.warn("Forgot password")
-    }
     
-    const onSignUpPress = () => {
-      console.warn("Sign up")
+    const onSignInPress = () => {
+      console.warn("Sign In")
+    }
+
+    <SocialSignInButtons/>
+
+    const onTermsOfUsePressed = () => {
+      console.warn('onTermsOfUserPressd');
+    }
+
+    const onPrivacyPressed = () => {
+      console.warn('onPrivacyPressed');
     }
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
-        <Image source={Logo} style={[styles.logo, {height: height * 0.3}]} resizeMode='contain' />
+        <Text style={styles.title}>Create an account</Text>
 
         <CustomInput 
           placeholder="Email" 
           value={email} 
           setValue={setEmail}
         />
+
+        <CustomInput 
+          placeholder="Username" 
+          value={username} 
+          setValue={setUsername}
+        />
+
         <CustomInput 
           placeholder="Password" 
           value={password} 
           setValue={setPassword}
           secureTextEntry={true}
         />
-        <CustomButton
-          text="Sign In"
-          onPress={onSignInPressed}
-        />
-        <CustomButton
-          text="Forgot Password?"
-          onPress={onForgotPasswordPressed}
-          type="TERTIARY"
+
+        <CustomInput 
+          placeholder="Repeat Password" 
+          value={password2} 
+          setValue={setPassword2}
+          secureTextEntry={true}
         />
 
-        <SocialSignInButtons />
+        <CustomButton
+          text="Register"
+          onPress={onRegisterPressed}
+        />
+
+        <Text style={styles.text}>
+          By registering, you confirm that you accept out<Text style={styles.link} onPress={onTermsOfUsePressed}> Terms of Use</Text> and <Text style={styles.link} onPress={onPrivacyPressed}>Privacy Policy</Text>
+        </Text>
 
         <CustomButton
-          text="Don't have an account? Create one"
-          onPress={onSignUpPress}
+          text="Have an account? Sign in"
+          onPress={onSignInPress}
           type="TERTIARY"
         />
 
@@ -101,7 +118,20 @@ const styles = StyleSheet.create({
         width: 250,
         maxWidth: 250,
         height: 250,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: '#051C60',
+      margin: 10,
+    },
+    text: {
+      color: 'gray',
+      marginVertical: 10,
+    },
+    link: {
+      color: '#FDB075',
     }
 })
 
-export default Login
+export default SignUp
