@@ -1,13 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Login from './src/screens/Login/Login';
-import SignUp from './src/screens/SignUp/SignUp';
-import ConfirmEmail from './src/screens/ConfirmEmail/ConfirmEmail';
-
+import ForgotPassword from './src/screens/ForgotPassword/ForgotPassword';
 
 export default function App() {
   return (
     <View style={styles.root}>
-      <ConfirmEmail />
+      <ForgotPassword />
     </View>
   );
 }
