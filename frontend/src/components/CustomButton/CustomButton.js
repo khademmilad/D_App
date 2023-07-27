@@ -29,12 +29,19 @@ const styles = StyleSheet.create({
     },
     container_TERTIARY: {
     },
+    container_SECONDARY: {
+      borderColor: '#3B71F3',
+      borderWidth: 2,
+    },
     text: {
         fontWeight: 'bold',
         color: 'white',
     },
     text_TERTIARY: {
         color: 'gray',
+    },
+    text_SECONDARY: {
+      color: '#3B71F3',
     }
 })
 
