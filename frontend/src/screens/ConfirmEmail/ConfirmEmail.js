@@ -71,7 +71,7 @@ const ConfirmEmail = () => {
         <CustomButton
           text="Resend code"
           onPress={onResendPressd}
-          type="TERTIARY"
+          type="SECONDARY"
         />
 
         <CustomButton
