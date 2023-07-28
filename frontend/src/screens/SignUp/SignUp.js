@@ -4,6 +4,7 @@ import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons'
+import { useNavigation } from '@react-navigation/native'
 
 
 const SignUp = () => {
@@ -12,6 +13,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
 
+    const navigation = useNavigation();
 
     const onRegisterPressed = () => {
       // Prepare the data to be sent to the API
@@ -32,7 +34,9 @@ const SignUp = () => {
           // Check if the response status is OK (200)
         if (response.ok) {
           console.warn('Login successful'); // Display success message in console
+
           // You can also handle redirection to another screen upon successful login if needed
+          navigation.navigate('ConfirmEmail');
         } else {
           console.warn('Login failed'); // Display failure message in console
           // Handle the case of unsuccessful login (e.g., show an error message to the user)
@@ -46,6 +50,10 @@ const SignUp = () => {
     
     const onSignInPress = () => {
       console.warn("Sign In")
+
+      navigation.navigate('SignIn');
+
+
     }
 
     <SocialSignInButtons/>

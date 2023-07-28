@@ -5,7 +5,7 @@ import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons'
-
+import { useNavigation } from '@react-navigation/native'
 
 
 const Login = () => {
@@ -13,6 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const {height} = useWindowDimensions();
+    const navigation = useNavigation();
 
     const onSignInPressed = () => {
       // Prepare the data to be sent to the API
@@ -33,7 +34,10 @@ const Login = () => {
           // Check if the response status is OK (200)
         if (response.ok) {
           console.warn('Login successful'); // Display success message in console
+
           // You can also handle redirection to another screen upon successful login if needed
+          navigation.navigate('HomeScreen');
+
         } else {
           console.warn('Login failed'); // Display failure message in console
           // Handle the case of unsuccessful login (e.g., show an error message to the user)
@@ -47,10 +51,14 @@ const Login = () => {
 
     const onForgotPasswordPressed = () => {
         console.warn("Forgot password")
+
+        navigation.navigate('ForgotPassword');
     }
     
     const onSignUpPress = () => {
       console.warn("Sign up")
+
+      navigation.navigate('SignUp');
     }
 
   return (
