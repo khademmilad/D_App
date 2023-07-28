@@ -7,7 +7,7 @@ import SignUp from '../screens/SignUp/SignUp'
 import NewPassword from '../screens/NewPassword/NewPassword'
 import ConfirmEmail from '../screens/ConfirmEmail/ConfirmEmail'
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
-
+import HomeScreen from '../screens/HomeScreen/index'
 
 // Define the Stack variable
 const Stack = createStackNavigator();
@@ -21,6 +21,7 @@ const Navigation = () => {
             <Stack.Screen name="NewPassword" component={NewPassword} />
             <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
         </Stack.Navigator>
     </NavigationContainer>
   )
