@@ -3,11 +3,12 @@ import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
-import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons'
-
+import { useNavigation } from '@react-navigation/native'
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
+
+    const navigation = useNavigation();
 
     const onRegisterPressed = () => {
       // Prepare the data to be sent to the API
@@ -46,6 +47,8 @@ const ForgotPassword = () => {
 
     const onSignInPressd = () => {
       console.warn('onSignInPressd')
+
+      navigation.navigate('SignIn');
     }
 
   return (

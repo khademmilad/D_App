@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import NewPassword from './src/screens/NewPassword/NewPassword';
+import Navigation from './src/navigation';
+
 
 export default function App() {
   return (
     <View style={styles.root}>
-      <NewPassword />
+      <Navigation />
     </View>
   );
 }
