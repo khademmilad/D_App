@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Account
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -17,3 +18,19 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=60)
     password = serializers.CharField(max_length=128, write_only=True)
+
+    def validate(self, data):
+        email = data.get('email')
+        password = data.get('password')
+
+        # Perform your custom authentication logic here, e.g., check if the email and password are valid
+        try:
+            user = Account.objects.get(email=email)
+        except Account.DoesNotExist:
+            raise serializers.ValidationError('Invalid email.')
+
+        if not user.check_password(password):
+            raise serializers.ValidationError('Invalid password.')
+
+        # If the authentication is successful, return the user object
+        return user

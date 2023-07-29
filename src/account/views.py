@@ -16,8 +16,11 @@ from friend.utils import get_friend_request_or_false
 from friend.friend_request_status import FriendRequestStatus
 from friend.models import FriendList, FriendRequest
 from rest_framework import generics, status
+from rest_framework.views import APIView
 from .serializers import LoginSerializer, RegistrationSerializer
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 
 TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
@@ -40,19 +43,24 @@ class RegistrationAPIView(generics.CreateAPIView):
         )
 
 
-class LoginAPIView(generics.CreateAPIView):
+class LoginAPIView(APIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
-        serializer = self.get_serializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        return Response(
-            {
-                'user': serializer.validated_data,
-                'message': 'User logged in successfully.',
-            },
-            status=status.HTTP_200_OK
-        )
+
+        user = serializer.validated_data
+
+        # If the authentication is successful, create a token
+        refresh = RefreshToken.for_user(user)
+        data = {
+            'user': serializer.data,
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+            'message': 'User logged in successfully.',
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 # This is basically almost exactly the same as friends/friend_list_view
