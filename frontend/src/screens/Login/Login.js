@@ -36,7 +36,7 @@ const Login = () => {
           console.warn('Login successful'); // Display success message in console
 
           // You can also handle redirection to another screen upon successful login if needed
-          navigation.navigate('HomeScreen');
+          navigation.navigate('Profile');
 
         } else {
           console.warn('Login failed'); // Display failure message in console
