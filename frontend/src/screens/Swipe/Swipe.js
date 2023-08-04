@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native'
 import React from 'react'
 import ImageSwipe from '../../../assets/images/swipe.jpg'
 
@@ -7,7 +7,10 @@ const Swipe = () => {
   return (
     <View style={styles.root}>
       <View style={styles.card}>
-        <Image source={ImageSwipe} style={[styles.image]} resizeMode='contain' />
+        <ImageBackground source={ImageSwipe} style={[styles.image]} resizeMode='contain'>
+          <Text style={styles.name}>Elon Musk</Text>
+          <Text style={styles.bio}>Elon Musk</Text>
+        </ImageBackground>
       </View> 
     </View>
   )
@@ -37,6 +40,17 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 10,
+    overflow: 'hidden'
+  },
+  name: {
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  bio: {
+    fontSize: 18,
+    color: 'white',
+    lineHeight: 24,
   }
 })
 

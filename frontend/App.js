@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Navigation from './src/navigation';
-
+import Swipe from './src/screens/Swipe/Swipe';
 
 export default function App() {
   return (
     <View style={styles.root}>
-      <Navigation />
+      {/* <Navigation /> */}
+      <Swipe />
     </View>
   );
 }
