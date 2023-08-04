@@ -24,7 +24,7 @@ SwipeCard.propTypes = {
   imageSource: PropTypes.number.isRequired, // Assuming you're passing the image source as a require() number
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
   card: {
     width: '80%', // Adjust the width as needed
     height: '80%', // Adjust the height as needed

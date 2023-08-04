@@ -13,6 +13,16 @@ const Swipe = () => {
         bio="Elon Musk's biography goes here..."
         imageSource={ImageSwipe}
       />
+      <SwipeCard
+        name="Elon Musk"
+        bio="Elon Musk's biography goes here..."
+        imageSource={ImageSwipe}
+      />
+      <SwipeCard
+        name="Elon Musk"
+        bio="Elon Musk's biography goes here..."
+        imageSource={ImageSwipe}
+      />
     </View>
   );
 };
