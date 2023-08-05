@@ -21,7 +21,7 @@ const SwipeCard = ({ name, bio, imageSource }) => {
 SwipeCard.propTypes = {
   name: PropTypes.string.isRequired,
   bio: PropTypes.string.isRequired,
-  imageSource: PropTypes.number.isRequired, // Assuming you're passing the image source as a require() number
+  imageSource: PropTypes.string.isRequired, // Assuming you're passing the image source as a require()
 };
 
 const styles = StyleSheet.create({ 
