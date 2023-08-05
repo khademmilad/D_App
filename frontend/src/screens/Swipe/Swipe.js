@@ -28,7 +28,7 @@ const Swipe = () => {
           imageSource={ImageSwipe}
         />
       </Animated.View>
-      <Pressable onPress={changeOpacity}>
+      <Pressable onPress={() => (sharedValue.value = withSpring(Math.random()))}>
         <Text>Change value</Text>
       </Pressable>
     </View>
