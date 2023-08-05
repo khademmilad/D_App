@@ -1,11 +1,14 @@
+import 'react-native-gesture-handler'
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import SwipeCard from '../../components/SwipeCard/SwipeCard';
 import ImageSwipe from '../../../assets/images/swipe.jpg';
 
-const { width, height } = Dimensions.get('window');
 
 const Swipe = () => {
+
+
+
   return (
     <View style={styles.root}>
       <SwipeCard
