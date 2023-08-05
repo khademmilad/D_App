@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@babel/plugin-transform-export-namespace-from": "^7.22.5"
+  }
+}

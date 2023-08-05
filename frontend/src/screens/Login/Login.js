@@ -41,6 +41,8 @@ const Login = () => {
         } else {
           console.warn('Login failed'); // Display failure message in console
           // Handle the case of unsuccessful login (e.g., show an error message to the user)
+
+          navigation.navigate('Swipe')
         }
       })
       .catch(error => {
