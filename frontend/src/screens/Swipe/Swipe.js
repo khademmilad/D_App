@@ -7,35 +7,33 @@ import Animated, { useSharedValue, useAnimatedStyle, withSpring, useAnimatedGest
 import { PanGestureHandler } from 'react-native-gesture-handler';
 
 
+
 const Swipe = () => {
-  const sharedValue = useSharedValue(1); // Starting opacity value
+  const translateX = useSharedValue(0); // Starting opacity value
 
   const cardStyle = useAnimatedStyle(() => ({
-    transform: [{
-      translateX: sharedValue.value * 100,
+    transform: [
+    {
+      translateX: translateX.value,
     },
     ],
   }));
 
-  const changeOpacity = () => {
-    sharedValue.value = Math.random();
-  };
-
   const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_) => {
-      console.warn('Touch start')
+    onStart: _ => {
+      console.log('Touch start')
     },
     onActive: (event) => {
-      console.log('Touch x', event.translationX)
+      translateX.value = event.translationX;
     },
     onEnd: () => {
-      console.warn('Touch ended')
+      console.log('Touch ended')
     }
   })
 
   return (
     <View style={styles.root}>
-      <PanGestureHandler gestureHandler={gestureHandler}>
+      <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[styles.animatedCard, cardStyle]}>
           <SwipeCard
             name="Elon Musk"
@@ -44,7 +42,7 @@ const Swipe = () => {
           />
         </Animated.View>
       </PanGestureHandler>
-      <Pressable onPress={() => (sharedValue.value = withSpring(Math.random()))}>
+      <Pressable onPress={() => (translateX.value = withSpring(Math.random()))}>
         <Text>Change value</Text>
       </Pressable>
     </View>
