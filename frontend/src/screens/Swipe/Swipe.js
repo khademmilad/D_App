@@ -1,30 +1,41 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Text, Pressable, useWindowDimensions } from 'react-native';
 import SwipeCard from '../../components/SwipeCard/SwipeCard';
 import ImageSwipe from '../../../assets/images/swipe.jpg';
-import Animated, { useSharedValue, useAnimatedStyle, withSpring, useAnimatedGestureHandler } from 'react-native-reanimated';
+import Animated, { useSharedValue, useAnimatedStyle, useAnimatedGestureHandler, useDerivedValue, interpolate } from 'react-native-reanimated';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 
 
 
 const Swipe = () => {
+
+  const { width: screenWidth } = useWindowDimensions();
+
   const translateX = useSharedValue(0); // Starting opacity value
+  
+  const rotate = useDerivedValue(
+    () => interpolate(translateX.value, [0, screenWidth], [0, 60]) + 'deg',
+    );
 
   const cardStyle = useAnimatedStyle(() => ({
     transform: [
     {
       translateX: translateX.value,
     },
+    {
+      rotate: rotate.value,
+    }
     ],
   }));
 
   const gestureHandler = useAnimatedGestureHandler({
-    onStart: _ => {
-      console.log('Touch start')
+    onStart: (_, context) => {
+      context.startX = translateX.value;
+      
     },
-    onActive: (event) => {
-      translateX.value = event.translationX;
+    onActive: (event, context) => {
+      translateX.value = context.startX + event.translationX;
     },
     onEnd: () => {
       console.log('Touch ended')
@@ -42,9 +53,6 @@ const Swipe = () => {
           />
         </Animated.View>
       </PanGestureHandler>
-      <Pressable onPress={() => (translateX.value = withSpring(Math.random()))}>
-        <Text>Change value</Text>
-      </Pressable>
     </View>
   );
 };
