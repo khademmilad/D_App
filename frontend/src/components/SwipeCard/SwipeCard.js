@@ -3,12 +3,16 @@ import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types'; // Import PropTypes for type checking
 import ImageSwipe from '../../../assets/images/swipe.jpg';
 
-const SwipeCard = ({ name, bio, imageSource }) => {
+
+
+const SwipeCard = ({ name, bio, imageSource, showYesText, showNoText }) => {
   return (
     <View style={styles.card}>
-      <ImageBackground source={imageSource} style={styles.image} resizeMode='cover'>
+      <ImageBackground source={imageSource} style={styles.image} resizeMode="cover">
         <View style={styles.cartInner}>
           <View style={styles.textContainer}>
+            {showYesText && <Text style={[styles.yesText, styles.text]}>Yes</Text>}
+            {showNoText && <Text style={[styles.noText, styles.text]}>No</Text>}
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.bio}>{bio}</Text>
           </View>
@@ -62,7 +66,26 @@ const styles = StyleSheet.create({
     fontSize: 16, // Adjust font size as needed
     color: 'white',
     lineHeight: 24,
-  }
+  },
+  yesText: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    color: 'green',
+    fontWeight: 'bold',
+    fontSize: 24,
+    zIndex: 1, // Ensure it's above the card content
+  },
+  noText: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: 24,
+    zIndex: 1, // Ensure it's above the card content
+  },
+  
 });
 
 export default SwipeCard;

@@ -28,7 +28,8 @@ const cardData = [
 
 const Swipe = () => {
 
-  
+  const [showYesText, setShowYesText] = useState(false);
+  const [showNoText, setShowNoText] = useState(false);
 
   const [cardIndex, setCardIndex] = useState(0); // Initialize with 0 or any starting index
 
@@ -59,18 +60,35 @@ const Swipe = () => {
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, context) => {
       context.startX = translateX.value;
+      setShowYesText(false);
+      setShowNoText(false);
     },
     onActive: (event, context) => {
       translateX.value = context.startX + event.translationX;
+  
+      if (event.translationX > 20) {
+        setShowYesText(true);
+        setShowNoText(false);
+      } else if (event.translationX < -20) {
+        setShowYesText(false);
+        setShowNoText(true);
+      } else {
+        setShowYesText(false);
+        setShowNoText(false);
+      }
     },
     onEnd: (event) => {
-      const swipeThreshold = screenWidth * 0.5; // 50% of screen width
+      // Reset state and transition to the next card
+      setShowYesText(false);
+      setShowNoText(false);
+  
+      const swipeThreshold = screenWidth * 0.2; // 40% of screen width
   
       if (event.translationX > swipeThreshold) {
-        console.log("Swipe right"); // Swiped more than 50% to the right
+        console.log("Swipe right: Next card"); // Swiped more than 50% to the right
         setCardIndex((prevIndex) => prevIndex + 1);
       } else if (event.translationX < -swipeThreshold) {
-        console.log("Swipe left"); // Swiped more than 50% to the left
+        console.log("Swipe left: Next card"); // Swiped more than 50% to the left
         setCardIndex((prevIndex) => prevIndex + 1);
       }
   
@@ -78,6 +96,7 @@ const Swipe = () => {
       translateX.value = 0;
     },
   });
+  
 
   return (
     <View style={styles.root}>
@@ -88,6 +107,8 @@ const Swipe = () => {
               name={cardData[cardIndex].name}
               bio={cardData[cardIndex].bio}
               imageSource={cardData[cardIndex].imageSource}
+              showYesText={showYesText}
+              showNoText={showNoText}
             />
           ) : null}
         </Animated.View>
