@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   cartInner: {
     padding: 10,
-    backgroundColor: 'red'
+    backgroundColor: 'gray'
   },
   image: {
     flex: 1,
