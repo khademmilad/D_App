@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   animatedCard: {
-    width: '100%',
-    height: '100%',
+    width: '80%',
+    height: '80%',
     justifyContent: 'center',
     alignItems: 'center',
   },

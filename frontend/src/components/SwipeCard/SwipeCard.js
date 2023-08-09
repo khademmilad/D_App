@@ -1,24 +1,42 @@
-import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types'; // Import PropTypes for type checking
-import ImageSwipe from '../../../assets/images/swipe.jpg';
-
+import CardProfile from '../CardProfile/CardProfile';
 
 
 const SwipeCard = ({ name, bio, imageSource, showYesText, showNoText }) => {
+
+  const [showProfile, setShowProfile] = useState(false);
+
+  const handleCardPress = () => {
+    setShowProfile(true);
+  };
+  const handleProfileBack = () => {
+    setShowProfile(false);
+  };
+
+  if (showProfile) {
+    return (
+      <CardProfile user={{ name, bio }} onBackPress={handleProfileBack} />
+    );
+  }
+
   return (
-    <View style={styles.card}>
-      <ImageBackground source={imageSource} style={styles.image} resizeMode="cover">
-        <View style={styles.cartInner}>
-          <View style={styles.textContainer}>
-            {showYesText && <Text style={[styles.yesText, styles.text]}>Yes</Text>}
-            {showNoText && <Text style={[styles.noText, styles.text]}>No</Text>}
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.bio}>{bio}</Text>
+    <TouchableOpacity style={styles.card} onPress={handleCardPress}>
+      <View style={styles.card}>
+        <ImageBackground source={imageSource} style={styles.image} resizeMode="cover">
+          <View style={styles.cartInner}>
+            <View style={styles.textContainer}>
+              {showYesText && <Text style={[styles.yesText, styles.text]}>Yes</Text>}
+              {showNoText && <Text style={[styles.noText, styles.text]}>No</Text>}
+              <Text style={styles.name}>{name}</Text>
+              <Text style={styles.bio}>{bio}</Text>
+            </View>
           </View>
-        </View>
-      </ImageBackground>
-    </View>
+        </ImageBackground>
+      </View>
+    </TouchableOpacity>
+
   );
 };
 
@@ -30,8 +48,8 @@ SwipeCard.propTypes = {
 
 const styles = StyleSheet.create({ 
   card: {
-    width: '80%', // Adjust the width as needed
-    height: '80%', // Adjust the height as needed
+    width: '100%', // Adjust the width as needed
+    height: '100%', // Adjust the height as needed
     borderRadius: 10,
     overflow: 'hidden',
     shadowColor: "#000",
