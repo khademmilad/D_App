@@ -28,6 +28,8 @@ const cardData = [
 
 const Swipe = () => {
 
+  
+
   const [cardIndex, setCardIndex] = useState(0); // Initialize with 0 or any starting index
 
   const { width: screenWidth } = useWindowDimensions();
@@ -38,6 +40,7 @@ const Swipe = () => {
     () => interpolate(translateX.value, [0, screenWidth], [0, 60]) + 'deg',
     );
 
+  // CardStyle
   const cardStyle = useAnimatedStyle(() => ({
     transform: [
     {
@@ -45,31 +48,34 @@ const Swipe = () => {
     },
     {
       rotate: rotate.value,
+    },
+    {
+      scale: interpolate(translateX.value, [-screenWidth, 0, screenWidth], [0.8, 1, 0.8]), // Adjust scale values as needed
     }
     ],
+    opacity: interpolate(translateX.value, [-100, 0, 100], [0, 1, 0]), // Adjust opacity values as neededas needed
   }));
 
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, context) => {
       context.startX = translateX.value;
-      
     },
     onActive: (event, context) => {
       translateX.value = context.startX + event.translationX;
     },
     onEnd: (event) => {
-      if (event.translationX > 0) {
-        // Swiped right
-        console.log('Yes');
-      } else {
-        // Swiped left
-        console.log("No");
+      const swipeThreshold = screenWidth * 0.5; // 50% of screen width
+  
+      if (event.translationX > swipeThreshold) {
+        console.log("Swipe right"); // Swiped more than 50% to the right
+        setCardIndex((prevIndex) => prevIndex + 1);
+      } else if (event.translationX < -swipeThreshold) {
+        console.log("Swipe left"); // Swiped more than 50% to the left
+        setCardIndex((prevIndex) => prevIndex + 1);
       }
-      setCardIndex((prevIndex) => prevIndex + 1);
-
+  
       // Reset translateX value for the next card
       translateX.value = 0;
-
     },
   });
 
