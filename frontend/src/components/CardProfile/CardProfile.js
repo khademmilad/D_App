@@ -16,13 +16,13 @@ const CardProfile = ({ user, images, onBackPress }) => {
       </View>
       <Text style={styles.name}>{user.name}</Text>
       <Text style={styles.age}>{user.age} years old</Text>
-      <View style={styles.hashtags}>
+      {/* <View style={styles.hashtags}>
         {user.hashtags.map((tag, index) => (
           <Text key={index} style={styles.hashtagText}>
             #{tag}
           </Text>
         ))}
-      </View>
+      </View> */}
       <TouchableOpacity style={styles.backButton} onPress={onBackPress}>
         <Text style={styles.backButtonText}>Back</Text>
       </TouchableOpacity>
