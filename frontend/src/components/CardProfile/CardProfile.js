@@ -15,7 +15,9 @@ const CardProfile = ({ user, images, onBackPress }) => {
       {/* Profile Information */}
       <View style={styles.userInfo}>
         <Text style={styles.name}>{user.name}</Text>
-        <Text style={styles.bio}>{user.bio}</Text>
+        <Text style={styles.bio}>Elon Musk's biography goes here...</Text>
+        <Text>Location: Berlin</Text>
+        <Text>Work: Fachinformatiker</Text>
       </View>
 
       <View style={styles.buttonsContainer}>
@@ -35,10 +37,15 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: 'white',
     flexDirection: "column",
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // borderColor: 'red',
-    // borderWidth: 2,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,  // For Android shadow
   },
 
   userImageContainer: {
@@ -51,12 +58,15 @@ const styles = StyleSheet.create({
   userImage: {
     width: '100%',
     height: '100%',
-    borderTopWidth: 2,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     overflow: 'hidden',
-    borderRadius: 10,
+    // borderRadius: 10,
   },
   userInfo: {
-    alignItems: 'center',
+    alignItems: 'left',
+    backgroundColor: 'gray',
+    padding: 10,
     marginBottom: 20,
     flex: 2,
   },

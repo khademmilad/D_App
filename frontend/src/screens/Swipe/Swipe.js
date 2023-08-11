@@ -14,13 +14,13 @@ const cardData = [
     imageSource: ImageSwipe,
   },
   {
-    name: "Elon Musk 2",
-    bio: "Elon Musk's biography goes here...",
+    name: "Elon Musk 1",
+    bio: "1 Elon Musk's biography goes here...",
     imageSource: ImageSwipe,
   },
   {
     name: "Elon Musk 3",
-    bio: "Elon Musk's biography goes here...",
+    bio: "2 Elon Musk's biography goes here...",
     imageSource: ImageSwipe,
   },
   // Add more card data objects as needed
