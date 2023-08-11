@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import SwipeImage from '../../../assets/images/swipe.jpg'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const CardProfile = ({ user, images, onBackPress }) => {
@@ -14,14 +16,35 @@ const CardProfile = ({ user, images, onBackPress }) => {
       
       {/* Profile Information */}
       <View style={styles.userInfo}>
-        <Text style={styles.name}>{user.name}</Text>
-        <Text style={styles.bio}>Elon Musk's biography goes here...</Text>
-        <Text>Location: Berlin</Text>
-        <Text>Work: Fachinformatiker</Text>
+
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{user.name}</Text>
+        </View>
+
+        <View style={styles.infoContainer}>
+          <Text style={styles.bio}>Elon Musk's biography goes here...</Text>
+        </View>
+
+        <View style={styles.infoContainer}>
+        <Ionicons name="location" size={20} style={styles.icon} />
+          <Text style={styles.infoText}>Location: Berlin</Text>
+        </View>
+        
+        <View style={styles.infoContainer}>
+          <Icon name="home" size={20} color="gray" style={styles.icon} />
+          <Text style={styles.infoText}>Work: Fachinformatiker</Text>
+        </View>
+
       </View>
 
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.backButton} onPress={onBackPress}>
+          <Text style={styles.backButtonText}>Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.backButtonText}>Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
           <Text style={styles.backButtonText}>Back</Text>
         </TouchableOpacity>
       </View>
@@ -65,10 +88,11 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     alignItems: 'left',
-    backgroundColor: 'gray',
+    backgroundColor: 'white',
     padding: 10,
     marginBottom: 20,
     flex: 2,
+    // color: '#ffe0fc'
   },
   name: {
     fontSize: 24,
@@ -77,16 +101,30 @@ const styles = StyleSheet.create({
   bio: {
     fontSize: 16,
     textAlign: 'center',
-    marginHorizontal: 20,
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 4,
+  },
+  icon: {
+    marginRight: 8,
+    color: 'black'
+  },
+  infoText: {
+    fontSize: 16,
   },
   buttonsContainer: {
     flex: 3,
-    // flexDirection: 'row',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    width: 100,
+    backgroundColor: 'red',
+    // width: 100,
   },
   button: {
+    width: 50,
+    height: 50,
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
