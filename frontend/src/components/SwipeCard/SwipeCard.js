@@ -15,13 +15,6 @@ const SwipeCard = ({ name, bio, imageSource, showYesText, showNoText }) => {
     setShowProfile(false);
   };
 
-   // Define user information and images
-   const user = {
-    name: 'John Doe',
-    age: 28,
-    hashtags: ['travel', 'fitness', 'food'],
-  };
-
   const images = [
     require('../../../assets/images/swipe.jpg'),
     require('../../../assets/images/swipe.jpg'),

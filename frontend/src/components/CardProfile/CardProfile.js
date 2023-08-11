@@ -1,31 +1,29 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
+import SwipeImage from '../../../assets/images/swipe.jpg'
+
 
 const CardProfile = ({ user, images, onBackPress }) => {
   return (
     <View style={styles.profileContainer}>
-      <View style={styles.imageContainer}>
-        <FlatList
-          horizontal
-          data={images}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <Image source={item} style={styles.userImage} resizeMode="cover" />
-          )}
-        />
+
+      {/* Images */}
+      <View style={styles.userImageContainer}>
+        <Image source={SwipeImage} style={styles.userImage} />
       </View>
-      <Text style={styles.name}>{user.name}</Text>
-      <Text style={styles.age}>{user.age} years old</Text>
-      {/* <View style={styles.hashtags}>
-        {user.hashtags.map((tag, index) => (
-          <Text key={index} style={styles.hashtagText}>
-            #{tag}
-          </Text>
-        ))}
-      </View> */}
-      <TouchableOpacity style={styles.backButton} onPress={onBackPress}>
-        <Text style={styles.backButtonText}>Back</Text>
-      </TouchableOpacity>
+      
+      {/* Profile Information */}
+      <View style={styles.userInfo}>
+        <Text style={styles.name}>{user.name}</Text>
+        <Text style={styles.bio}>{user.bio}</Text>
+      </View>
+
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={onBackPress}>
+          <Text style={styles.backButtonText}>Back</Text>
+        </TouchableOpacity>
+      </View>
+
     </View>
   );
 };
@@ -33,38 +31,71 @@ const CardProfile = ({ user, images, onBackPress }) => {
 const styles = StyleSheet.create({
   profileContainer: {
     flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imageContainer: {
-    height: 200,
-    marginBottom: 20,
-  },
-  userImage: {
-    width: 150,
+    width: '100%',
     height: '100%',
+    backgroundColor: 'white',
+    flexDirection: "column",
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // borderColor: 'red',
+    // borderWidth: 2,
+  },
+
+  userImageContainer: {
+    width: '100%',
+    height: '50%',
     marginRight: 10,
     borderRadius: 10,
+    backgroundColor: 'darkorange',
+  },
+  userImage: {
+    width: '100%',
+    height: '100%',
+    borderTopWidth: 2,
+    overflow: 'hidden',
+    borderRadius: 10,
+  },
+  userInfo: {
+    alignItems: 'center',
+    marginBottom: 20,
+    flex: 2,
   },
   name: {
     fontSize: 24,
     fontWeight: 'bold',
   },
-  age: {
-    fontSize: 18,
-    marginBottom: 10,
+  bio: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginHorizontal: 20,
   },
-  hashtags: {
-    flexDirection: 'row',
-    marginBottom: 20,
+  buttonsContainer: {
+    flex: 3,
+    // flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    width: 100,
   },
-  hashtagText: {
-    marginRight: 5,
-    fontSize: 14,
-    color: 'blue',
+  button: {
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'gray',
+    flex: 1,
+    alignItems: 'center',
+    marginHorizontal: 5,
   },
-  backButton: {
+  starButton: {
+    backgroundColor: 'gold',
+  },
+  likeButton: {
+    backgroundColor: 'green',
+  },
+  buttonText: {
+    color: 'black',
+    fontSize: 16,
+  },
+    backButton: {
     padding: 10,
     backgroundColor: 'gray',
     borderRadius: 5,
