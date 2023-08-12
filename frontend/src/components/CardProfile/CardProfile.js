@@ -1,65 +1,76 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
-import SwipeImage from '../../../assets/images/swipe.jpg'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import SwipeImage from '../../../assets/images/swipe.jpg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-
 const CardProfile = ({ user, images, onBackPress }) => {
   return (
-    <View style={styles.profileContainer}>
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+      <View style={styles.profileContainer}>
 
-      {/* Images */}
-      <View style={styles.userImageContainer}>
-        <Image source={SwipeImage} style={styles.userImage} />
-      </View>
-      
-      {/* Profile Information */}
-      <View style={styles.userInfo}>
-
-        <View style={styles.infoContainer}>
-          <Text style={styles.name}>{user.name}</Text>
-        </View>
-
-        <View style={styles.infoContainer}>
-          <Text style={styles.bio}>Elon Musk's biography goes here...</Text>
-        </View>
-
-        <View style={styles.infoContainer}>
-        <Ionicons name="location" size={20} style={styles.icon} />
-          <Text style={styles.infoText}>Location: Berlin</Text>
+        {/* Images */}
+        <View style={styles.userImageContainer}>
+          <Image source={SwipeImage} style={styles.userImage} />
         </View>
         
-        <View style={styles.infoContainer}>
-          <Icon name="home" size={20} color="gray" style={styles.icon} />
-          <Text style={styles.infoText}>Work: Fachinformatiker</Text>
+        {/* Profile Information */}
+        <View style={styles.userInfo}>
+
+          <View style={styles.infoContainer}>
+            <Text style={styles.name}>{user.name}</Text>
+          </View>
+
+          <View style={styles.infoContainer}>
+            <Text style={styles.bio}>Elon Musk's biography goes here...</Text>
+          </View>
+
+          <View style={styles.infoContainer}>
+            <Ionicons name="location" size={20} style={styles.icon} />
+            <Text style={styles.infoText}>Location: Berlin</Text>
+          </View>
+          
+          <View style={styles.infoContainer}>
+            <Icon name="home" size={20} color="gray" style={styles.icon} />
+            <Text style={styles.infoText}>Work: Fachinformatiker</Text>
+          </View>
+
+        </View>
+
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={[styles.button, styles.backButton]} onPress={onBackPress}>
+            <Ionicons name="arrow-back" size={20} color="white" />
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={[styles.button, styles.starButton]}>
+            <Ionicons name="star" size={20} color="white" />
+            <Text style={styles.buttonText}>Star</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={[styles.button, styles.likeButton]}>
+            <Ionicons name="heart" size={20} color="white" />
+            <Text style={styles.buttonText}>Like</Text>
+          </TouchableOpacity>
         </View>
 
       </View>
-
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={onBackPress}>
-          <Text style={styles.backButtonText}>Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.backButtonText}>Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.backButtonText}>Back</Text>
-        </TouchableOpacity>
-      </View>
-
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollViewContainer: {
+    flexGrow: 1,
+    
+  },
   profileContainer: {
     flex: 1,
     width: '100%',
-    height: '100%',
     backgroundColor: 'white',
     flexDirection: "column",
+    borderColor: 'gray', // Add border color
+    borderWidth: 1, // Add border width
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -70,7 +81,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,  // For Android shadow
   },
-
   userImageContainer: {
     width: '100%',
     height: '50%',
@@ -84,7 +94,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     overflow: 'hidden',
-    // borderRadius: 10,
   },
   userInfo: {
     alignItems: 'left',
@@ -92,7 +101,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     flex: 2,
-    // color: '#ffe0fc'
   },
   name: {
     fontSize: 24,
@@ -109,7 +117,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
-    color: 'black'
+    color: 'black',
   },
   infoText: {
     fontSize: 16,
@@ -119,17 +127,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    backgroundColor: 'red',
-    // width: 100,
   },
   button: {
-    width: 50,
+    width: 80,
     height: 50,
-    padding: 10,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: 'gray',
-    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 5,
   },
@@ -140,16 +146,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
   },
   buttonText: {
-    color: 'black',
-    fontSize: 16,
-  },
-    backButton: {
-    padding: 10,
-    backgroundColor: 'gray',
-    borderRadius: 5,
-  },
-  backButtonText: {
     color: 'white',
+    fontSize: 16,
+    marginLeft: 5,
+  },
+  backButton: {
+    backgroundColor: 'gray',
   },
 });
 
