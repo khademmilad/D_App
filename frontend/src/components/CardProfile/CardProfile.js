@@ -19,21 +19,21 @@ const CardProfile = ({ user, onBackPress }) => {
         <View style={styles.userInfo}>
 
           <View style={styles.infoContainer}>
-            <Text style={styles.name}>{user.username}</Text>
+            <Text style={styles.name}>{user.name}</Text>
           </View>
 
           <View style={styles.infoContainer}>
-            <Text style={styles.bio}>Elon Musk's biography goes here...</Text>
+            <Text style={styles.bio}>{user.bio}</Text>
           </View>
 
           <View style={styles.infoContainer}>
             <Ionicons name="location" size={20} style={styles.icon} />
-            <Text style={styles.infoText}>Location: Berlin</Text>
+            <Text style={styles.infoText}>Location: {user.location}</Text>
           </View>
           
           <View style={styles.infoContainer}>
             <Icon name="home" size={20} color="gray" style={styles.icon} />
-            <Text style={styles.infoText}>Work: Fachinformatiker</Text>
+            <Text style={styles.infoText}>Work: {user.work}</Text>
           </View>
 
         </View>

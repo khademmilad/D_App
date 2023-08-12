@@ -29,7 +29,7 @@ const SwipeCard = ({ user, showYesText, showNoText }) => {
             <View style={styles.textContainer}>
               {showYesText && <Text style={[styles.yesText, styles.text]}>Yes</Text>}
               {showNoText && <Text style={[styles.noText, styles.text]}>No</Text>}
-              <Text style={styles.name}>{user.username}</Text>
+              <Text style={styles.name}>{user.name}</Text>
               <Text style={styles.bio}>{user.bio}</Text>
             </View>
           </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   cartInner: {
     padding: 10,
-    backgroundColor: 'gray'
+    backgroundColor: 'rgba(77, 74, 74, 0.2)'
   },
   image: {
     flex: 1,
