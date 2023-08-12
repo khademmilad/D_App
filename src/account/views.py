@@ -2,13 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.conf import settings
-from django.core.files.storage import default_storage
-from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import default_storage, FileSystemStorage
 import os
 import cv2
 import json
 import base64
-import requests
 from django.core import files
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from account.models import Account
@@ -17,7 +15,7 @@ from friend.friend_request_status import FriendRequestStatus
 from friend.models import FriendList, FriendRequest
 from rest_framework import generics, status
 from rest_framework.views import APIView
-from .serializers import LoginSerializer, RegistrationSerializer
+from .serializers import LoginSerializer, RegistrationSerializer, AccountSerializer
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -332,3 +330,18 @@ def edit_account_view(request, *args, **kwargs):
 		context['form'] = form
 	context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
 	return render(request, "account/edit_account.html", context)
+
+
+class UsersWithoutFriendRequestView(generics.ListAPIView):
+    serializer_class = AccountSerializer
+    
+    def get_queryset(self):
+        authenticated_user = self.request.user
+        
+        # Get a list of user IDs to whom friend requests have been sent
+        users_with_received_requests = FriendRequest.objects.values_list('receiver', flat=True)
+
+        # Query for all users who haven't received any friend requests
+        users_without_received_requests = Account.objects.exclude(id__in=users_with_received_requests).exclude(id=authenticated_user.id)
+
+        return users_without_received_requests

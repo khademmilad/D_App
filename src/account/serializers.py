@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Account
 from rest_framework_simplejwt.tokens import RefreshToken
+from friend.models import FriendRequest
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -34,3 +35,10 @@ class LoginSerializer(serializers.Serializer):
 
         # If the authentication is successful, return the user object
         return user
+    
+
+# Return users who did not send a friend request
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['username', 'profile_image']
