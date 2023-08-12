@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'; // Import PropTypes for type checking
 import CardProfile from '../CardProfile/CardProfile';
 
 
-const SwipeCard = ({ name, bio, imageSource, showYesText, showNoText }) => {
+const SwipeCard = ({ user, showYesText, showNoText }) => {
 
   const [showProfile, setShowProfile] = useState(false);
 
@@ -15,42 +15,37 @@ const SwipeCard = ({ name, bio, imageSource, showYesText, showNoText }) => {
     setShowProfile(false);
   };
 
-  const images = [
-    require('../../../assets/images/swipe.jpg'),
-    require('../../../assets/images/swipe.jpg'),
-    require('../../../assets/images/swipe.jpg'),
-    // Add more image sources here
-  ];
-
   if (showProfile) {
     return (
-      <CardProfile user={{ name }} images={images} onBackPress={handleProfileBack} />
+      <CardProfile user={user} onBackPress={handleProfileBack} />
     );
   }
 
   return (
     <TouchableOpacity style={styles.card} onPress={handleCardPress}>
       <View style={styles.card}>
-        <ImageBackground source={imageSource} style={styles.image} resizeMode="cover">
+        <ImageBackground source={{ uri: user.profile_image }} style={styles.image} resizeMode="cover">
           <View style={styles.cartInner}>
             <View style={styles.textContainer}>
               {showYesText && <Text style={[styles.yesText, styles.text]}>Yes</Text>}
               {showNoText && <Text style={[styles.noText, styles.text]}>No</Text>}
-              <Text style={styles.name}>{name}</Text>
-              <Text style={styles.bio}>{bio}</Text>
+              <Text style={styles.name}>{user.username}</Text>
+              <Text style={styles.bio}>{user.bio}</Text>
             </View>
           </View>
         </ImageBackground>
       </View>
     </TouchableOpacity>
-
   );
 };
 
 SwipeCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  bio: PropTypes.string.isRequired,
-  imageSource: PropTypes.string.isRequired, // Assuming you're passing the image source as a require()
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    bio: PropTypes.string.isRequired,
+    profile_image: PropTypes.string.isRequired,
+  }).isRequired,
+  // ...other propTypes...
 };
 
 const styles = StyleSheet.create({ 

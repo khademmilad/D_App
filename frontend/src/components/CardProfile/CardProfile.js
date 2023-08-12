@@ -1,24 +1,25 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import SwipeImage from '../../../assets/images/swipe.jpg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const CardProfile = ({ user, images, onBackPress }) => {
+
+
+const CardProfile = ({ user, onBackPress }) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <View style={styles.profileContainer}>
 
         {/* Images */}
         <View style={styles.userImageContainer}>
-          <Image source={SwipeImage} style={styles.userImage} />
+          <Image source={{uri: user.profile_image}} style={styles.userImage} />
         </View>
         
         {/* Profile Information */}
         <View style={styles.userInfo}>
 
           <View style={styles.infoContainer}>
-            <Text style={styles.name}>{user.name}</Text>
+            <Text style={styles.name}>{user.username}</Text>
           </View>
 
           <View style={styles.infoContainer}>

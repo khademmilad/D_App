@@ -1,39 +1,29 @@
-import 'react-native-gesture-handler';
-import React, { useState } from 'react'; // Import useState
-import { View, StyleSheet, Text, Pressable, useWindowDimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import SwipeCard from '../../components/SwipeCard/SwipeCard';
-import ImageSwipe from '../../../assets/images/swipe.jpg';
 import Animated, { useSharedValue, useAnimatedStyle, useAnimatedGestureHandler, useDerivedValue, interpolate } from 'react-native-reanimated';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 
 
-const cardData = [
-  {
-    name: "Elon Musk",
-    bio: "Elon Musk's biography goes here...",
-    imageSource: ImageSwipe,
-  },
-  {
-    name: "Elon Musk 1",
-    bio: "1 Elon Musk's biography goes here...",
-    imageSource: ImageSwipe,
-  },
-  {
-    name: "Elon Musk 3",
-    bio: "2 Elon Musk's biography goes here...",
-    imageSource: ImageSwipe,
-  },
-  // Add more card data objects as needed
-];
 
 const Swipe = () => {
 
   const [showYesText, setShowYesText] = useState(false);
   const [showNoText, setShowNoText] = useState(false);
-
+  const [users, setUsers] = useState([]);
   const [cardIndex, setCardIndex] = useState(0); // Initialize with 0 or any starting index
-
   const { width: screenWidth } = useWindowDimensions();
+
+  useEffect(() => {
+    // Fetch data from the API
+    fetch('http://127.0.0.1:8000/account/api/users-without-friend-request/')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Fetched data:', data); // Log the fetched data
+        setUsers(data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
   const translateX = useSharedValue(0); // Starting opacity value
   
@@ -97,16 +87,13 @@ const Swipe = () => {
     },
   });
   
-
   return (
     <View style={styles.root}>
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={[styles.animatedCard, cardStyle]}>
-          {cardIndex < cardData.length ? (
+          {cardIndex < users.length ? (
             <SwipeCard
-              name={cardData[cardIndex].name}
-              bio={cardData[cardIndex].bio}
-              imageSource={cardData[cardIndex].imageSource}
+              user={users[cardIndex]}
               showYesText={showYesText}
               showNoText={showNoText}
             />
