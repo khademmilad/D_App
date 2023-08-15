@@ -3,6 +3,7 @@ import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import SwipeCard from '../../components/SwipeCard/SwipeCard';
 import Animated, { useSharedValue, useAnimatedStyle, useAnimatedGestureHandler, useDerivedValue, interpolate } from 'react-native-reanimated';
 import { PanGestureHandler } from 'react-native-gesture-handler';
+import axios from 'axios'; // Import Axios for making API requests
 
 
 
@@ -13,6 +14,25 @@ const Swipe = () => {
   const [users, setUsers] = useState([]);
   const [cardIndex, setCardIndex] = useState(0); // Initialize with 0 or any starting index
   const { width: screenWidth } = useWindowDimensions();
+
+  const sendFriendRequest = async (receiverUserId) => {
+    try {
+      const csrfToken = getCsrfTokenFromSomewhere(); // Replace with your method of getting the CSRF token
+      const response = await axios.post(
+        'http://127.0.0.1:8000/friend/api/send-friend-request-serializer/',
+        { receiver_user_id: receiverUserId },
+        {
+          headers: {
+            'X-CSRFToken': csrfToken,
+            'Cookie': 'sessionid=' + getSessionCookieFromSomewhere() // Replace with your method of getting the session cookie
+          }
+        }
+      );
+      console.log('Friend request sent:', response.data.response);
+    } catch (error) {
+      console.error('Error sending friend request:', error);
+    }
+  };
 
   useEffect(() => {
     // Fetch data from the API
@@ -76,6 +96,7 @@ const Swipe = () => {
   
       if (event.translationX > swipeThreshold) {
         console.log("Swipe right: Next card"); // Swiped more than 50% to the right
+        sendFriendRequest(users[cardIndex].id); // Pass the receiver's user ID
         setCardIndex((prevIndex) => prevIndex + 1);
       } else if (event.translationX < -swipeThreshold) {
         console.log("Swipe left: Next card"); // Swiped more than 50% to the left

@@ -4,6 +4,11 @@ import json
 from django.shortcuts import redirect
 from account.models import Account
 from friend.models import FriendRequest, FriendList
+from .serializers import SendFriendRequestSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
+from django.http import JsonResponse
+
 
 
 def friends_list_view(request, *args, **kwargs):
@@ -191,3 +196,27 @@ def cancel_friend_request(request, *args, **kwargs):
 		# should never happen
 		payload['response'] = "You must be authenticated to cancel a friend request."
 	return HttpResponse(json.dumps(payload), content_type="application/json")
+
+
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def send_friend_request_serializer(request):
+	user = request.user
+	serializer = SendFriendRequestSerializer(data=request.data)
+	print('user', user)
+	if serializer.is_valid():
+		receiver_user_id = serializer.validated_data['receiver_user_id']
+		print('receiver_user_id', receiver_user_id)	
+		try:
+			receiver = Account.objects.get(pk=receiver_user_id)
+			# Check for existing friend requests and handle accordingly
+            # ... (Your existing logic for sending friend requests)
+
+			payload = {'response': 'Friend request sent.'}
+		except Account.DoesNotExist:
+			payload = {'response': 'Receiver user not found.'}
+	else:
+		payload = {'response': 'Invalid data.'}
+    
+	return JsonResponse(payload)
