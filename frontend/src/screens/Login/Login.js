@@ -6,6 +6,9 @@ import CustomButton from '../../components/CustomButton/CustomButton'
 import BASE_URL from '../../../config'
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../redux/actions/authActions';
+
 
 
 const Login = () => {
@@ -33,6 +36,8 @@ const Login = () => {
         .then(response => {
           // Check if the response status is OK (200)
         if (response.ok) {
+          dispatch(loginSuccess(csrfToken));
+          console.log('csrftoken', csrfToken);
           console.warn('Login successful'); // Display success message in console
 
           // You can also handle redirection to another screen upon successful login if needed
